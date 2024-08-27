@@ -1,0 +1,55 @@
+﻿@model PodologiaJa.Models.Cliente
+@{
+    ViewData["Title"] = "Cadastro Cliente";
+}
+<div class="col- mb-3">
+    <div class="card">
+        <div class="card-body text-center">
+            <h3 class="card-title">Cadastro Clientes </h3>
+     
+        </div>
+    </div>
+        <div class="row justify-content-center">
+            <form method="post">
+                <!-- Name input -->
+                <div  class="form-outline mb-4 col-5">
+                <input asp-for="Nome_completo" type="text" id="Nome_completo" class="form-control" />
+                    <label asp-for="Nome_completo" class="form-label" for="form4Example1">Name</label>
+                </div>
+
+                <div  class="form-outline mb-4 ">
+                <input asp-for="Celular" type="text" id="Celular" class="form-control" />
+                <label asp-for="Celular" class="form-label" for="form4Example1">Celular</label>
+                </div>
+
+            <div class="form-outline mb-4 ">
+                <input asp-for="Email" type="email" id="Email" class="form-control" />
+                <label asp-for="Email" class="form-label" for="form4Example2">Email</label>
+            </div>
+
+                <div  class="form-outline mb-4 ">
+                <input asp-for="Data_Agedamento" type="text" id="Data_Agedamento" class="form-control" />
+                <label asp-for="Data_Agedamento" class="form-label" for="form4Example1">Data Agendamento</label>
+                </div>
+
+                <!-- Email input -->
+                <div  class="form-outline mb-4 ">
+                <input asp-for="Hora_Agendamento" type="text" id="Hora_Agendamento" class="form-control" />
+                <label asp-for="Hora_Agendamento" class="form-label" for="form4Example1">Hora_Agendamento</label>
+                </div>
+
+                <!-- Message input -->
+                <div  class="form-outline mb-4 ">
+                <textarea asp-for="Descricao" class="form-control" id="Descricao" rows="4"></textarea>
+                <label asp-for="Descricao" class="form-label" for="form4Example3">Message</label>
+                </div>
+                <!-- Submit button -->
+                <input type="submit" class="btn btn-outline-info btn-lg" name="name" value="Salvar" />
+            </form>
+        </div>    
+</div>
+
+
+
+
+

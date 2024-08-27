@@ -1,0 +1,112 @@
+﻿@model IEnumerable<PodologiaJa.Models.Cliente>
+
+@{
+    ViewData["Title"] = "BuscarCliente";
+    Layout = "~/Views/Shared/_LayoutPodologia.cshtml";
+    int qtdePaginas = ViewBag.QtdePaginas;
+    int paginaAtual = ViewBag.PaginaAtual;
+    int qtdeTClientes = ViewBag.QtdeTClientes;
+}
+@if (TempData["msg"] as string == "2")
+{
+    <div class="alert alert-success">
+        <span> Dados alterados com sucesso!</span>
+    </div>
+}
+else if (TempData["msg"] as string == "1")
+{
+    <div class="alert alert-success">
+        <span> Dados cadastrados com sucesso!</span>
+    </div>
+}
+<h1 class="display-4 align-content-center">Clientes</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="CadastroCliente">Novo Cliente</a>
+</p>
+<div class="container mt-5">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" id="itemTabs" role="tablist">
+        <!-- loop para criar as abas de navegacao -->
+        @for (int i = 1; i <= qtdePaginas; i++)
+        {
+            <li class="nav-item" role="presentation">
+                <a class="nav-link @(i == paginaAtual ? "active" : "")" id="tab-@i"
+                   data-bs-toggle="tab" href="#page-@i" role="tab" aria-controls="page-@i"
+                   aria-selected="@(i == qtdePaginas ? "true" : "false")">
+                    @i  <!-- numero da pagina -->
+                </a>
+            </li>
+        }
+    </ul>
+    <!-- conteudo das abas -->
+    <div class="tab-content">
+        <!-- loop para criar o conteudo de cada aba -->
+        @for (int i = 1; i <= qtdePaginas; i++)
+        {
+            <div class="tab-pane fade @(i == paginaAtual ? "show active" : "")"
+                 id="page-@i" role="tabpanel" aria-labelledby="tab-@i">
+                <table class="table table-bordered table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Id)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Celular)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Data_Agedamento)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Hora_Agendamento)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Descricao)
+                            </th>
+                            <th>
+                             Ações
+                            </th>
+                            <th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Skip((i - 1) * qtdeTClientes).Take(qtdeTClientes))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Celular)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Data_Agedamento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Hora_Agendamento)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Descricao)
+                                </td>
+                                <td>
+                                <td>
+
+                                    <a class="btn btn-primary" style="padding:0.2rem;" asp-action="CadastroCliente" asp-route-id="@item.Id">Alterar</a> |
+                                    <a class="btn btn-primary" style="padding:0.2rem;" asp-action="DetalhesClientes" asp-route-id="@item.Id">Detalhes</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
