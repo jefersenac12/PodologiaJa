@@ -16,13 +16,13 @@
 else if (TempData["msg"] as string == "1")
 {
     <div class="alert alert-success">
-        <span> Dados cadastrados com sucesso!</span>
+        <span> Consulta agendada com sucesso!</span>
     </div>
 }
 <h1 class="display-4 align-content-center">Clientes</h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="CadastroCliente">Novo Cliente</a>
+    <a class="btn btn-primary" asp-action="CadastroCliente">Nova Consulta</a>
 </p>
 <div class="container mt-5">
     <!-- Nav tabs -->
@@ -53,7 +53,7 @@ else if (TempData["msg"] as string == "1")
                                 @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Celular)
+                                @Html.DisplayNameFor(model => model.Nome_completo)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Email)

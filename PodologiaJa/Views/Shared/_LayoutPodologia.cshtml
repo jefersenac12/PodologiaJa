@@ -15,28 +15,35 @@
 </head>
 <body>
     <!-- Responsive navbar-->
-    <nav class="navbar navbar-expand-lg p-0">
-        
+    <nav class="navbar navbar-expand-lg p-0 ">
+
         <div class="container px-lg-1">
             <a class="navbar-brand" asp-controller="Podologia" asp-action="Index">
-           <img src="/img/logo-01.png" alt="" class="img-fluid"height="10"style="max-width:200px" />
-          
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
+                <img src="/img/logo-01.png" alt="" class="img-fluid" height="10" style="max-width:200px" />
+            </a>
+            <!----pegar do templede----->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="Cliente" asp-action="BuscarCliente">Cliente</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="Servicos" asp-action="Index">Serviços</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="Galeria" asp-action="Index">Galeria</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                </ul>
-            </div>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="Servicos" asp-action="Index">Serviços</a></li>
+                <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="Galeria" asp-action="Index">Galeria</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
+            </ul>
+          </div>
+        </div>
     </nav>
     <!-- Header-->
-   @*  <header class="py-5">
-        <!----Banner----->
-            <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
-                   <img src="/img/Banner.jpg" alt="Banner" class="img-fluid" />
-                </div>
+    @*  <header class="py-5">
+    <!----Banner----->
+    <div class="p-4 p-lg-5 bg-light rounded-3 text-center">
+    <img src="/img/Banner.jpg" alt="Banner" class="img-fluid" />
+    </div>
     </header>
-     *@
+    *@
     <!-- Page Content-->
 
     <div class="container">
