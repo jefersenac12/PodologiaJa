@@ -58,7 +58,7 @@ namespace PodologiaJa.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
 
-        public async Task<IActionResult> CadastroCliente([Bind("Id,Nome_completo,Celular,Email,Data_Agedamento,Hora_Agendamento,Descricao")] Cliente cliente)
+        public async Task<IActionResult> CadastroCliente([Bind("Id,Nome_completo,Celular,Email,Data_Agendamento,Hora_Agendamento,Descricao")] Cliente cliente)
         {
 
             // verifica se o modelo e valido.
