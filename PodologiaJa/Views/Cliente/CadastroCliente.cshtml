@@ -1,6 +1,8 @@
 ﻿@model PodologiaJa.Models.Cliente
 @{
     ViewData["Title"] = "Cadastro Cliente";
+    Layout = "~/Views/Shared/_LayoutPodologia2.cshtml";
+
 }
 <div class="row">
     <div class="col text-center">
@@ -12,7 +14,7 @@
        <div class="col-5 m-3"> 
        <label asp-for="Nome_completo"class="col-form-label fw-bold">Nome</label>
             <input asp-for="Nome_completo" class="form-control" id="Nome_completo"type="text" />
-            <div class="form-text">Digite o Seu numero do Celular</div>
+            <div class="form-text">Digite o Seu Nome completo</div>
      </div>
         <div class="col-3 m-3">
             <label asp-for="Celular" class="col-form-label fw-bold">Celular</label>

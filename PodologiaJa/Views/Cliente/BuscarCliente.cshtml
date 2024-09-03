@@ -2,11 +2,12 @@
 
 @{
     ViewData["Title"] = "BuscarCliente";
-    Layout = "~/Views/Shared/_LayoutPodologia.cshtml";
+    Layout = "~/Views/Shared/_LayoutPodologia2.cshtml";
     int qtdePaginas = ViewBag.QtdePaginas;
     int paginaAtual = ViewBag.PaginaAtual;
     int qtdeTClientes = ViewBag.QtdeTClientes;
 }
+
 @if (TempData["msg"] as string == "2")
 {
     <div class="alert alert-success">
@@ -50,10 +51,10 @@ else if (TempData["msg"] as string == "1")
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.Id)
+                                @Html.DisplayNameFor(model => model.Nome_completo)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Nome_completo)
+                                @Html.DisplayNameFor(model => model.Celular)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.Email)
@@ -74,7 +75,7 @@ else if (TempData["msg"] as string == "1")
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Id)
+                                    @Html.DisplayFor(modelItem => item.Nome_completo)
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Celular)
@@ -101,8 +102,11 @@ else if (TempData["msg"] as string == "1")
 
                         }
                     </tbody>
+
                 </table>
             </div>
+         
         }
     </div>
 </div>
+
