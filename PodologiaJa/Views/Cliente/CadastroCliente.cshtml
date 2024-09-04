@@ -28,12 +28,13 @@
         </div>
         <div class="col-3 m-3">
             <label asp-for="Data_Agendamento" class="col-form-label fw-bold">Data_Agedamento</label>
-            <input asp-for="Data_Agendamento" class="form-control" id="Data_Agedamento" type="text" />
+            <input asp-for="Data_Agendamento" class="form-control" id="Data_Agedamento" type="date"
+            required pattern="\(\d{2}\) \d{5}-\d{4}" />
             <div class="form-text">Digite A data de Consulta que Deseja </div>
         </div>
         <div class="col-3 m-3">
             <label asp-for="Hora_Agendamento" class="col-form-label fw-bold">Hora_Agendamento</label>
-            <input asp-for="Hora_Agendamento" class="form-control" id="Hora_Agendamento" type="text" />
+            <input asp-for="Hora_Agendamento" class="form-control" id="Hora_Agendamento" type="time" />
             <div class="form-text">Digite A Hora da Consulta que Deseja </div>
         </div>
         <div class="col-3 m-3">

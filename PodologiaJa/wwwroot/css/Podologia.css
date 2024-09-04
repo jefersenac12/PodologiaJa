@@ -96,7 +96,7 @@ body {
   font-family: var(--bs-body-font-family);
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
-  line-height: var(--bs-body-line-height);
+ /* line-height: var(--bs-body-line-height);*/
   color: var(--bs-body-color);
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
@@ -11035,9 +11035,14 @@ html {
 }
 
 .footer {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    min-height:1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     background-color: #dffdf7;
+    text-align:center;
+    position:fixed;
+    bottom:0;
+    width:100%;
     /* color: #fff; */
 }
 

@@ -5,6 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.SqlServer.Server;
 using System.Reflection.PortableExecutable;
+using System.Text.RegularExpressions;
+using System.Linq.Expressions;
+using System.Data;
+using System.Globalization;
 
 namespace PodologiaJa.Controllers
 {
@@ -103,7 +107,56 @@ namespace PodologiaJa.Controllers
             }
             return RedirectToAction("BuscarCliente");
         }
+        public class Formatar
+        {
+            // Formatar celular
+            public static string
+                FormatarCelular(string celular)
+
+            {
+                return
+                    Regex.Replace(celular, @"(\D{2})
+                   (\D{5})(\d{4})", "($1) $2-$3");
+
+            }
+            // Validar email
+            public static bool
+               ValidarEmail(string email)
+            {
+                try
+                {
+                    var addr = new
+                    System.Net.Mail.MailAddress(email);
+                    return addr.Address == email;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            // Formatar data
+            public static string
+                FormatarData(DateTime data)
+
+            {
+                return
+              data.ToString("dd/MM/yyyy",
+              CultureInfo.InvariantCulture);
+
+            }
+            // Formatar hora
+            public static string
+                FormatarHora(TimeSpan hora)
+            {
+                return
+               hora.ToString(@"hh\:mm");
+
+            }
+
+
+        }
     }
 }
+
 
 

@@ -51,7 +51,7 @@
         <div class="container ">
             <div class="row">
                 <!-- Footer Location-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="col-lg-4 mb-1 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Location</h4>
                     <p class="lead mb-0">
                         160 R.gracliano ramos
@@ -63,18 +63,15 @@
 
                 </div>
                 <!-- Footer Social Icons-->
-                <div class="col-lg-4 mb-5 mb-lg-0">
+                <div class="col-lg-4 mb-1 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Redes Socias</h4>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-                    <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
-                </div>
+                    <a class="btn btn-outline-light btn-social mx-1" href="https://wa.me/11997535036"><i class="fab fa-fw fa-whatsapp"></i></a>
+
+                </div> 
                 <!-- Footer About Text-->
                 <div class="col-lg-4">
-                    <h4 class="text-uppercase mb-4">Sobre meu local de trabalho</h4>
-                    <p class="lead mb-0">
-                        eu atualmente estou trabalhando no endereço que esta sendo fornecido ao lado e estou trabalhando na sala de numeração 7 e apos a sua chegada por-favor verifique o interfone e precione o interfone com o numero 7 
+                    <h4 class="text-uppercase mb-1">Sobre meu local de trabalho</h4>
+                    <p class="lead mb-0"> ao chegar ao local indicado verifique o interfone e aperte o numero 7 
                
                         .
                     </p>
@@ -82,5 +79,10 @@
             </div>
         </div>
     </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 
     </html>
