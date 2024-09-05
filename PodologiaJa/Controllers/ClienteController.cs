@@ -15,10 +15,55 @@ namespace PodologiaJa.Controllers
     public class ClienteController : Controller
     {
         private readonly AulaContext _context;
+        
 
         public ClienteController(AulaContext context)
         {
             _context = context;
+        }
+        public class Formatar
+        {
+            // Formatar celular
+            //public static string
+            //    FormatarCelular(string celular)
+            //{
+            //    return Regex.Replace(celular, @"(\d{2})(\d{5})(\d{4})", "($1) $2-$3");
+            //}
+            // Validar email
+            public static bool
+               ValidarEmail(string email)
+            {
+                try
+                {
+                    var addr = new
+                    System.Net.Mail.MailAddress(email);
+                    return addr.Address == email;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            // Formatar data
+            public static string
+                FormatarData(DateOnly data)
+
+            {
+                return
+              data.ToString("dd/MM/yyyy",
+              CultureInfo.InvariantCulture);
+
+            }
+            // Formatar hora
+            public static string
+                FormatarHora(TimeOnly hora)
+            {
+                return
+               hora.ToString(@"hh\:mm");
+
+            }
+
+
         }
 
         //metodo pra BuscarCliente todos os Clientes e exibir numa View
@@ -64,11 +109,18 @@ namespace PodologiaJa.Controllers
 
         public async Task<IActionResult> CadastroCliente([Bind("Id,Nome_completo,Celular,Email,Data_Agendamento,Hora_Agendamento,Descricao")] Cliente cliente)
         {
-
+            
             // verifica se o modelo e valido.
             if (ModelState.IsValid)
             {
-
+                if  (!Formatar.ValidarEmail(cliente.Email))
+                {
+                    ModelState.AddModelError("Email", "Email invalido.");
+                    return View(cliente); 
+                }
+                //formata os campos antes  de salvar 
+                cliente.Data_Agendamento=DateOnly.ParseExact(Formatar.FormatarData(cliente.Data_Agendamento), "dd/MM/yyyy",CultureInfo.InvariantCulture);
+                cliente.Hora_Agendamento=TimeOnly.ParseExact(Formatar.FormatarHora(cliente.Hora_Agendamento), @"hh\:mm",CultureInfo.InvariantCulture) ;
                 // se o id do cliente for diferente de zero,atualiza o cliente existente
                 if (cliente.Id != 0)
                 {
@@ -106,54 +158,6 @@ namespace PodologiaJa.Controllers
                 }
             }
             return RedirectToAction("BuscarCliente");
-        }
-        public class Formatar
-        {
-            // Formatar celular
-            public static string
-                FormatarCelular(string celular)
-
-            {
-                return
-                    Regex.Replace(celular, @"(\D{2})
-                   (\D{5})(\d{4})", "($1) $2-$3");
-
-            }
-            // Validar email
-            public static bool
-               ValidarEmail(string email)
-            {
-                try
-                {
-                    var addr = new
-                    System.Net.Mail.MailAddress(email);
-                    return addr.Address == email;
-                }
-                catch
-                {
-                    return false;
-                }
-            }
-            // Formatar data
-            public static string
-                FormatarData(DateTime data)
-
-            {
-                return
-              data.ToString("dd/MM/yyyy",
-              CultureInfo.InvariantCulture);
-
-            }
-            // Formatar hora
-            public static string
-                FormatarHora(TimeSpan hora)
-            {
-                return
-               hora.ToString(@"hh\:mm");
-
-            }
-
-
         }
     }
 }

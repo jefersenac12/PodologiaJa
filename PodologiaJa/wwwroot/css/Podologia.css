@@ -11035,14 +11035,14 @@ html {
 }
 
 .footer {
-    min-height:1rem;
+    min-height: 1rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    background-color: #dffdf7;
-    text-align:center;
-    position:fixed;
-    bottom:0;
-    width:100%;
+    background-color:#fffdea;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     /* color: #fff; */
 }
 

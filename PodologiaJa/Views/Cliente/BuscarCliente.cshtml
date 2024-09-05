@@ -7,6 +7,38 @@
     int paginaAtual = ViewBag.PaginaAtual;
     int qtdeTClientes = ViewBag.QtdeTClientes;
 }
+<style>
+    body {
+        background-image: url('/img/agendamento-online.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-attachment: fixed;
+    }
+
+    .container {
+        /*     background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com opacidade  */
+        padding: 20px;
+        border-radius: 8px;
+    }
+
+    .table {
+        background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com maior opacidade */
+    }
+
+        .table thead {
+            background-color: #f8f9fa; /* Cor de fundo para o cabeçalho da tabela */
+        }
+
+    .nav-tabs .nav-link.active {
+        background-color: #17a2b8; /* Cor da aba ativa */
+        color: white;
+    }
+
+    .nav-tabs .nav-link {
+        color: #17a2b8;
+    }
+</style>
 
 @if (TempData["msg"] as string == "2")
 {
@@ -102,38 +134,7 @@ else if (TempData["msg"] as string == "1")
 
                         }
                     </tbody>
-                    <style>
-                        body {
-                            background-image: url('/img/agendamento-online.png');
-                            background-size: cover;
-                            background-repeat: no-repeat;
-                            background-position: center center;
-                            background-attachment: fixed;
-                        }
-
-                        .container {
-                            /*     background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com opacidade  */
-                            padding: 20px;
-                            border-radius: 8px;
-                        }
-
-                        .table {
-                            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco com maior opacidade */
-                        }
-
-                            .table thead {
-                                background-color: #f8f9fa; /* Cor de fundo para o cabeçalho da tabela */
-                            }
-
-                        .nav-tabs .nav-link.active {
-                            background-color: #17a2b8; /* Cor da aba ativa */
-                            color: white;
-                        }
-
-                        .nav-tabs .nav-link {
-                            color: #17a2b8;
-                        }
-                    </style>
+ 
                 </table>
             </div>
          

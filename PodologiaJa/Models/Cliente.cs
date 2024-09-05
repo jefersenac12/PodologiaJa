@@ -9,8 +9,9 @@ namespace PodologiaJa.Models
         [Required(ErrorMessage = "O nome completo é obrigatório.")]
         public string Nome_completo { get; set; }= string.Empty;
 
+
         [Required(ErrorMessage = "O celular é obrigatório.")]
-        [RegularExpression(@"\(\d{2}\) \d{5}-\d{4}", ErrorMessage = "O celular deve estar no formato (XX) XXXXX-XXXX.")]
+        //[RegularExpression(@"\(\d{2}\) \d{5}-\d{4}", ErrorMessage = "O celular deve estar no formato (XX) XXXXX-XXXX.")]
         public string Celular { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "O Email é obrigatório.")]
@@ -18,10 +19,9 @@ namespace PodologiaJa.Models
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Data de agendandamento é obrigatória .")]
-        public DateTime Data_Agendamento { get; set; }
+        public DateOnly Data_Agendamento { get; set; }
 
-        [Required(ErrorMessage = "A Hora é obrigatória .")]
-        public TimeSpan Hora_Agendamento { get; set; } 
+        public TimeOnly Hora_Agendamento { get; set; } 
 
         public string Descricao { get; set; } = string.Empty;
     }
