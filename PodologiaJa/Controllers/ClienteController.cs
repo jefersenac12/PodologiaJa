@@ -15,7 +15,7 @@ namespace PodologiaJa.Controllers
     public class ClienteController : Controller
     {
         private readonly AulaContext _context;
-        
+
 
         public ClienteController(AulaContext context)
         {
@@ -23,12 +23,12 @@ namespace PodologiaJa.Controllers
         }
         public class Formatar
         {
-            // Formatar celular
-            //public static string
-            //    FormatarCelular(string celular)
-            //{
-            //    return Regex.Replace(celular, @"(\d{2})(\d{5})(\d{4})", "($1) $2-$3");
-            //}
+            //// Formatar celular
+            public static string
+                FormatarCelular(string celular)
+            {
+                return Regex.Replace(celular, @"(\d{2})(\d{5})(\d{4})", "($1) $2-$3");
+            }
             // Validar email
             public static bool
                ValidarEmail(string email)
@@ -109,40 +109,51 @@ namespace PodologiaJa.Controllers
 
         public async Task<IActionResult> CadastroCliente([Bind("Id,Nome_completo,Celular,Email,Data_Agendamento,Hora_Agendamento,Descricao")] Cliente cliente)
         {
-            
-            // verifica se o modelo e valido.
+            // Formata os campos antes de validar
+            cliente.Celular = Formatar.FormatarCelular(cliente.Celular).Trim();
+            // o Trim() é usado para garantir que o número de celular não tenha espaços em branco extras antes ou depois do número.
+            // Isso ajuda a evitar erros de validação e garante que o número esteja no formato correto.
+
+            // Mensagem de depuração
+            Console.WriteLine($"Número de celular formatado: {cliente.Celular}");
+
+            // Valida o formato do celular
+            if (!Regex.IsMatch(cliente.Celular, @"\(\d{2}\)\d{5}-\d{4}"))
+            {
+                ModelState.AddModelError("Celular", "O celular deve estar no formato (XX)XXXXX-XXXX");
+            }
+
+            // Verifica se o modelo é válido.
             if (ModelState.IsValid)
             {
-                if  (!Formatar.ValidarEmail(cliente.Email))
-                {
-                    ModelState.AddModelError("Email", "Email invalido.");
-                    return View(cliente); 
-                }
-                //formata os campos antes  de salvar 
-                cliente.Data_Agendamento=DateOnly.ParseExact(Formatar.FormatarData(cliente.Data_Agendamento), "dd/MM/yyyy",CultureInfo.InvariantCulture);
-                cliente.Hora_Agendamento=TimeOnly.ParseExact(Formatar.FormatarHora(cliente.Hora_Agendamento), @"hh\:mm",CultureInfo.InvariantCulture) ;
-                // se o id do cliente for diferente de zero,atualiza o cliente existente
+                cliente.Data_Agendamento = DateOnly.ParseExact(Formatar.FormatarData(cliente.Data_Agendamento), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                cliente.Hora_Agendamento = TimeOnly.ParseExact(Formatar.FormatarHora(cliente.Hora_Agendamento), @"hh\:mm", CultureInfo.InvariantCulture);
+
+                // Se o id do cliente for diferente de zero, atualiza o cliente existente
                 if (cliente.Id != 0)
                 {
                     _context.Update(cliente);
                     await _context.SaveChangesAsync();
                     TempData["msg"] = "2";
                 }
-                //se o id do cliente for zero,adiciona um novo cliente ao banco de dados
+                // Se o id do cliente for zero, adiciona um novo cliente ao banco de dados
                 else
                 {
                     _context.Add(cliente);
                     await _context.SaveChangesAsync();
                     TempData["msg"] = "1";
-
-
                 }
-                // redirediciona para o metodo  buscarClientes apos o cadastro ou atualizaçao
+
+                // Redireciona para o método BuscarCliente após o cadastro ou atualização
                 return RedirectToAction("BuscarCliente");
             }
-            // se o modelo nao for valido retorna a view com os dados do cliente para correçao
+
+            // Se o modelo não for válido, retorna a view com os dados do cliente para correção
             return View(cliente);
         }
+
+
+
         // action pra deletar clientes
         public async Task<IActionResult> DeleterCliente(int? Id)
         {

@@ -11,7 +11,7 @@ namespace PodologiaJa.Models
 
 
         [Required(ErrorMessage = "O celular é obrigatório.")]
-        //[RegularExpression(@"\(\d{2}\) \d{5}-\d{4}", ErrorMessage = "O celular deve estar no formato (XX) XXXXX-XXXX.")]
+        [RegularExpression(@"\(\d{2}\)\d{5}-\d{4}", ErrorMessage = "O celular deve estar no formato (XX)XXXXX-XXXX")]
         public string Celular { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "O Email é obrigatório.")]
