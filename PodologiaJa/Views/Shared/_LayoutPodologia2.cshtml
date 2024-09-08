@@ -87,6 +87,30 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="~/lib/jqueryMask/jquery.mask.min.js" type="text/javascript" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#Celular').mask('(00)00000-0000');
+            // Validação simples para o campo de nome completo
+            $('#Nome_completo').on('input', function () {
+                var nome = $(this).val();
+                $(this).val(nome.replace(/[^a-zA-ZÀ-ÿ\s]/g, '')); // Permite apenas letras e espaços
+
+                $(function () {
+                    var selectedClass = "";
+                    $(".filter").click(function () {
+                        selectedClass = $(this).attr("data-rel");
+                        $("#gallery").fadeTo(100, 0.1);
+                        $("#gallery div").not("." + selectedClass).fadeOut().removeClass('animation');
+                        setTimeout(function () {
+                            $("." + selectedClass).fadeIn().addClass('animation');
+                            $("#gallery").fadeTo(300, 1);
+                        }, 300);
+                    });
+                });
+            });
+        });
+    </script>
 </body>
 
     </html>

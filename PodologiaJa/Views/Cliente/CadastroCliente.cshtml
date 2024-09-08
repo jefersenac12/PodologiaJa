@@ -5,6 +5,19 @@
 
 
 }
+@if(ViewData.ModelState["Hora_agendamento"]!=null)
+{
+    <div class="alert alert-danger">
+        <span>@ViewData.ModelState["Hora_Agendamento"].Errors.First().ErrorMessage</span>
+    </div>
+}
+@if (ViewData.ModelState[string.Empty] != null)
+{
+    <div class="alert alert-danger">
+        <span>@ViewData.ModelState[string.Empty].Errors.First().ErrorMessage</span>
+    </div>
+}
+
 <div class="row">
     <div class="col text-center">
         <h1>☊ Agendamento De Consultas☊</h1>

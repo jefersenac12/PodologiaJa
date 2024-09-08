@@ -1,39 +1,60 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Galeria";
     Layout = "~/Views/Shared/_LayoutPodologia2.cshtml";
 
 }
+<link href="/css/Galeria.css" rel="stylesheet" />
 <!-- Gallery -->
-<div class="row">
-    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-             class="w-100 shadow-1-strong rounded mb-4"
-             alt="Boat on Calm Water" />
-
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
-             class="w-100 shadow-1-strong rounded mb-4"
-             alt="Wintry Mountain Landscape" />
-    </div>
-
-    <div class="col-lg-4 mb-4 mb-lg-0">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
-             class="w-100 shadow-1-strong rounded mb-4"
-             alt="Mountains in the Clouds" />
-
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
-             class="w-100 shadow-1-strong rounded mb-4"
-             alt="Boat on Calm Water" />
-    </div>
-
-    <div class="col-lg-4 mb-4 mb-lg-0">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
-             class="w-100 shadow-1-strong rounded mb-4"
-             alt="Waves at Sea" />
-
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
-             class="w-100 shadow-1-strong rounded mb-4"
-             alt="Yosemite National Park" />
-    </div>
+<div class="col-md-12 d-flex justify-content-center mb-5">
+    <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="all"> All </button>
+    <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="1">Mountains</button>
+    <button type="button" class="btn btn-outline-black waves-effect filter" data-rel="2">Sea</button>
 </div>
-<!-- Gallery -->
+
+<!-- Grid column →
+</div>
+
+<!-- Grid row -->
+<!-- Grid row →
+
+<div class="gallery" id="gallery">
+<!-- Grid column -->
+<div class="mb-3 pics animation all 2">
+    <img class="img-fluid" src="/img/Sobre/img24.jpg"></a>(73).jpg" alt="Card image cap">
+</div>
+
+<!-- Grid column -->
+<!-- Grid column →
+
+<div class="mb-3 pics animation all 1">
+<img class="img-fluid" src="<a href="https://mdbootstrap.com/img/Photos/Vertical/mountain1.jpg">https://mdbootstrap.com/img/Photos/Vertical/mountain1.jpg</a>" alt="Card image cap">
+</div>
+<!-- Grid column -->
+<!-- Grid column -->
+<div class="mb-3 pics animation all 1">
+    <img class="img-fluid" src="<a href=" https: //mdbootstrap.com/img/Photos/Vertical/mountain2.jpg">https://mdbootstrap.com/img/Photos/Vertical/mountain2.jpg</a>" alt="Card image cap">
+</div>
+
+<!-- Grid column -->
+<!-- Grid column →
+
+<div class="mb-3 pics animation all 2">
+<img class="img-fluid" src="<a href="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20">https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20</a>(35).jpg" alt="Card image cap">
+</div>
+
+<!-- Grid column -->
+<!-- Grid column -->
+<div class="mb-3 pics animation all 2">
+    <img class="img-fluid" src="<a href=" https: //mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20">https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20</a>(18).jpg" alt="Card image cap">
+</div>
+
+<!-- Grid column -->
+<!-- Grid column -->
+<div class="mb-3 pics animation all 1">
+    <img class="img-fluid" src="<a href=" https: //mdbootstrap.com/img/Photos/Vertical/mountain3.jpg">https://mdbootstrap.com/img/Photos/Vertical/mountain3.jpg</a>" alt="Card image cap">
+</div>
+
+<!-- Grid column -->
+</div>
+
+<!-- Grid row -->

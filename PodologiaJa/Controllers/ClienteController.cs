@@ -2,9 +2,6 @@
 using PodologiaJa.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.SqlServer.Server;
-using System.Reflection.PortableExecutable;
 using System.Text.RegularExpressions;
 using System.Linq.Expressions;
 using System.Data;
@@ -109,50 +106,85 @@ namespace PodologiaJa.Controllers
 
         public async Task<IActionResult> CadastroCliente([Bind("Id,Nome_completo,Celular,Email,Data_Agendamento,Hora_Agendamento,Descricao")] Cliente cliente)
         {
-            // Formata os campos antes de validar
-            cliente.Celular = Formatar.FormatarCelular(cliente.Celular).Trim();
-            // o Trim() é usado para garantir que o número de celular não tenha espaços em branco extras antes ou depois do número.
-            // Isso ajuda a evitar erros de validação e garante que o número esteja no formato correto.
-
-            // Mensagem de depuração
-            Console.WriteLine($"Número de celular formatado: {cliente.Celular}");
-
-            // Valida o formato do celular
-            if (!Regex.IsMatch(cliente.Celular, @"\(\d{2}\)\d{5}-\d{4}"))
+            //try-cath Por que? Para capturar exceções inesperadas durante o processo de cadastro, como falhas no banco de dados. Isso evita que o código quebre inesperadamente
+            //e exibe uma mensagem de erro amigável ao usuário
+            try
             {
-                ModelState.AddModelError("Celular", "O celular deve estar no formato (XX)XXXXX-XXXX");
-            }
+                // Formata os campos antes de validar
+                cliente.Celular = Formatar.FormatarCelular(cliente.Celular).Trim();
+                // o Trim() é usado para garantir que o número de celular não tenha espaços em branco extras antes ou depois do número.
+                // Isso ajuda a evitar erros de validação e garante que o número esteja no formato correto.
 
-            // Verifica se o modelo é válido.
-            if (ModelState.IsValid)
+                // Mensagem de depuração
+                Console.WriteLine($"Número de celular formatado: {cliente.Celular}");
+
+                // Valida o formato do celular
+                if (!Regex.IsMatch(cliente.Celular, @"\(\d{2}\)\d{5}-\d{4}"))
+                {
+                    ModelState.AddModelError("Celular", "O celular deve estar no formato (XX)XXXXX-XXXX");
+                }
+                //horario de funcionamento : 9h as 18h
+                var horarioAbertura = new TimeOnly(9, 0);
+                var horarioFechamento = new TimeOnly(18, 0);
+
+                if (cliente.Hora_Agendamento < horarioAbertura || cliente.Hora_Agendamento > horarioFechamento)
+                {
+                    ModelState.AddModelError("Hora_Agendamento", "os Agendamentos devem ser feitos entre 9h e 18h.");
+                }
+                // Verifica se o modelo é válido.
+                if (ModelState.IsValid)
+                {
+                    //formata a data e hora de agendamento
+                    cliente.Data_Agendamento = DateOnly.ParseExact(Formatar.FormatarData(cliente.Data_Agendamento), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    cliente.Hora_Agendamento = TimeOnly.ParseExact(Formatar.FormatarHora(cliente.Hora_Agendamento), @"hh\:mm", CultureInfo.InvariantCulture);
+
+
+                    //verifica se o horario e data ja estao agendados por otro cliente
+                    var AgendamentoExistente = await _context.Clientes.Where(c => c.Data_Agendamento == cliente.Data_Agendamento && c.Hora_Agendamento == cliente.Hora_Agendamento && c.Id != cliente.Id)
+                        .AnyAsync();
+                    //FirstOrDefaultAsync: Retorna o primeiro  objeto que coresponde a codiçao, ou null senenhum for encontrado.Util quando voce precisa manipular objeto.
+                    //AnyAsync:verificar se existe pelo menos um item que corresponde a uma codiçao.Retorna um valor booleano (true ou false
+
+                    if (AgendamentoExistente != null)
+                    {
+                        //se existir um agendamento exibe messagem de erro
+                        ModelState.AddModelError("Hora_Agendamento", "Este horario ja esta agendado.Por favor,escolha outro horario.");
+                        return View(cliente);
+
+                    }
+
+                    // Se o id do cliente for diferente de zero, atualiza o cliente existente
+                    if (cliente.Id != 0)
+                    {
+                        _context.Update(cliente);
+                        await _context.SaveChangesAsync();
+                        TempData["msg"] = "2";
+                    }
+                    // Se o id do cliente for zero, adiciona um novo cliente ao banco de dados
+                    else
+                    {
+                        _context.Add(cliente);
+                        await _context.SaveChangesAsync();
+                        TempData["msg"] = "1";
+                    }
+
+                    // Redireciona para o método BuscarCliente após o cadastro ou atualização
+                    return RedirectToAction("BuscarCliente");
+                }
+
+                // Se o modelo não for válido, retorna a view com os dados do cliente para correção
+                return View(cliente);
+            }
+            //cath Por que? Para capturar exceções inesperadas durante o processo de cadastro, como falhas no banco de dados. Isso evita que o código quebre inesperadamente
+            //e exibe uma mensagem de erro amigável ao usuário
+            catch (Exception ex)
             {
-                cliente.Data_Agendamento = DateOnly.ParseExact(Formatar.FormatarData(cliente.Data_Agendamento), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                cliente.Hora_Agendamento = TimeOnly.ParseExact(Formatar.FormatarHora(cliente.Hora_Agendamento), @"hh\:mm", CultureInfo.InvariantCulture);
-
-                // Se o id do cliente for diferente de zero, atualiza o cliente existente
-                if (cliente.Id != 0)
-                {
-                    _context.Update(cliente);
-                    await _context.SaveChangesAsync();
-                    TempData["msg"] = "2";
-                }
-                // Se o id do cliente for zero, adiciona um novo cliente ao banco de dados
-                else
-                {
-                    _context.Add(cliente);
-                    await _context.SaveChangesAsync();
-                    TempData["msg"] = "1";
-                }
-
-                // Redireciona para o método BuscarCliente após o cadastro ou atualização
-                return RedirectToAction("BuscarCliente");
+                //loga o erro para monitoramento
+                Console.WriteLine($"Erro ao cadastrar cliente:{ex.Message}");
+                ModelState.AddModelError(string.Empty, "Ocoreu um erro inesperado.Tente novamente.");
+                return View(cliente);
             }
-
-            // Se o modelo não for válido, retorna a view com os dados do cliente para correção
-            return View(cliente);
         }
-
-
 
         // action pra deletar clientes
         public async Task<IActionResult> DeleterCliente(int? Id)
@@ -166,6 +198,7 @@ namespace PodologiaJa.Controllers
                     _context.Remove<Cliente>(cliente);
                     await _context.SaveChangesAsync();
                     return RedirectToAction("BuscarCliente");
+
                 }
             }
             return RedirectToAction("BuscarCliente");
