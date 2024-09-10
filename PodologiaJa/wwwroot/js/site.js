@@ -28,7 +28,4 @@ window.setTimeout(function () {
     //$('.money').mask('000.000.000.000.000,00', { reverse: true });
 //});
 
-$(function () {
-    $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
-});
 

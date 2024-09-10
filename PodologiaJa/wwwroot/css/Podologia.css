@@ -601,7 +601,7 @@ progress {
 
 .img-fluid {
     max-width: 100%;
-  height: auto;
+      height: auto;
 
 }
 
@@ -3085,10 +3085,10 @@ textarea.form-control-lg {
 }
 
 .btn-outline-light {
-    --bs-btn-color: #1000ff;
+    --bs-btn-color: #10715e;
     --bs-btn-border-color: #000000;
     --bs-btn-hover-color: #000;
-    --bs-btn-hover-bg: #f8f9fa;
+    --bs-btn-hover-bg: #699999;
     --bs-btn-hover-border-color: #f8f9fa;
     --bs-btn-focus-shadow-rgb: 248, 249, 250;
     --bs-btn-active-color: #000;

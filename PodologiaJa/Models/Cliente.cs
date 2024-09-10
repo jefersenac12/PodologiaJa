@@ -6,8 +6,9 @@ namespace PodologiaJa.Models
     {
         public int Id { get; set; }
 
+
         [Required(ErrorMessage = "O nome completo é obrigatório.")]
-        public string Nome_completo { get; set; }= string.Empty;
+        public string Nome_completo { get; set; } = string.Empty;
 
 
         [Required(ErrorMessage = "O celular é obrigatório.")]
@@ -21,7 +22,7 @@ namespace PodologiaJa.Models
         [Required(ErrorMessage = "Data de agendandamento é obrigatória .")]
         public DateOnly Data_Agendamento { get; set; }
 
-        public TimeOnly Hora_Agendamento { get; set; } 
+        public TimeOnly Hora_Agendamento { get; set; }
 
         public string Descricao { get; set; } = string.Empty;
     }

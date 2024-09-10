@@ -1,37 +1,43 @@
-﻿.gallery {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-    -webkit-column-width: 33%;
-    -moz-column-width: 33%;
-    column-width: 33%;
+﻿body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
 }
 
-    .gallery .pics {
-        -webkit-transition: all 350ms ease;
-        transition: all 350ms ease;
-    }
-
-    .gallery .animation {
-        -webkit-transform: scale(1);
-        -ms-transform: scale(1);
-        transform: scale(1);
-    }
-
-@media (max-width: 450px) {
-    .gallery {
-        -webkit-column-count: 1;
-        -moz-column-count: 1;
-        column-count: 1;
-        -webkit-column-width: 100%;
-        -moz-column-width: 100%;
-        column-width: 100%;
-    }
+.container {
+    /*margin-top: 50px; *//* Espaçamento superior */
 }
 
-@media (max-width: 400px) {
-    .btn.filter {
-        padding-left: 1.1rem;
-        padding-right: 1.1rem;
+.carousel-inner img {
+    border-radius: 8px; /* Bordas arredondadas para as imagens */
+    width:100%;
+    height:auto;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente para os ícones */
+    border-radius: 50%; /* Ícones arredondados */
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%; /* Ajusta a largura dos controles */
+}
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        filter: brightness(1.2); /* Aumenta a luminosidade ao passar o mouse */
+    }
+
+h2 {
+    font-size: 2em; /* Tamanho da fonte do título */
+    margin-bottom: 20px; /* Espaçamento inferior */
+    color: #333; /* Cor do texto do título */
+}
+@media (min-width:1200px)
+{
+    .carousel-inner img{
+        width:70%;
+        max-height:600px;
     }
 }

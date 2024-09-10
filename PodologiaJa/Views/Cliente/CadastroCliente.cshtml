@@ -5,12 +5,13 @@
 
 
 }
-@if(ViewData.ModelState["Hora_agendamento"]!=null)
+@if (ViewData.ModelState["Hora_Agendamento"] != null)
 {
     <div class="alert alert-danger">
         <span>@ViewData.ModelState["Hora_Agendamento"].Errors.First().ErrorMessage</span>
     </div>
 }
+
 @if (ViewData.ModelState[string.Empty] != null)
 {
     <div class="alert alert-danger">
