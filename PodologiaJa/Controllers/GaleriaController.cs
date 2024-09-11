@@ -4,7 +4,7 @@ namespace PodologiaJa.Controllers
 {
     public class GaleriaController : Controller
     {
-        public IActionResult Index()
+        public IActionResult GaleriaAnteseDepois()
         {
             return View();
         }

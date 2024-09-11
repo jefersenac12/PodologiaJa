@@ -66,7 +66,7 @@ namespace PodologiaJa.Controllers
         //metodo pra BuscarCliente todos os Clientes e exibir numa View
         public async Task<IActionResult> BuscarCliente(int pagina = 1)
         {
-            var QtdeTClientes = 2;
+            var QtdeTClientes = 5;
             var items = await _context.Clientes.ToListAsync();
             //var pagedItems=items.Skip((pagina -1) * QtdeTClientes)
             //    .Take(QtdeTClientes).ToList();
@@ -109,6 +109,8 @@ namespace PodologiaJa.Controllers
             //e exibe uma mensagem de erro amigável ao usuário
             try
             {
+                // verificar se apenas um campo foi preenchido
+                VerificandoCamposPreenchidos(cliente);
                 // Formatar o número de celular antes de validar
                 cliente.Celular = Formatar.FormatarCelular(cliente.Celular).Trim();
 
@@ -182,6 +184,30 @@ namespace PodologiaJa.Controllers
                 ModelState.AddModelError(string.Empty, "Ocorreu um erro inesperado. Tente novamente.");
                 return View(cliente);
             }
+        }
+
+        private void VerificandoCamposPreenchidos(Cliente cliente)
+        {
+            int camposPreenchidos = 0;
+
+            if
+           (!string.IsNullOrEmpty(cliente.Nome_completo)) camposPreenchidos++;
+            if
+           (!string.IsNullOrEmpty(cliente.Celular)) camposPreenchidos++;
+            if
+           (!string.IsNullOrEmpty(cliente.Email)) camposPreenchidos++;
+            if
+           (cliente.Data_Agendamento!=default) camposPreenchidos++;
+            if
+           (cliente.Hora_Agendamento !=default) camposPreenchidos++;
+            if
+           (!string.IsNullOrEmpty(cliente.Descricao)) camposPreenchidos++;
+
+            if(camposPreenchidos == 1)
+            {
+                ModelState.AddModelError("", "Por favor, preencha mais de um campo no formulario para que possamos processar seu Cadastro corretamente.");
+            }
+
         }
 
 
