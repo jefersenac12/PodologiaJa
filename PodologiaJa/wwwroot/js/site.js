@@ -1,4 +1,5 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
+﻿// Please see documentation at
+https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
@@ -16,8 +17,6 @@ window.setTimeout(function () {
 //$('.time').mask('00:00:00');
 //$('.date_time').mask('00/00/0000 00:00:00');
 //$('.cep').mask('00000-000');
-
-
 //$(document).ready(function () { 
 //    $('#Celular').mask('(00)00000-0000');
     //$('.phone_with_ddd').mask('(00) 0000-0000');

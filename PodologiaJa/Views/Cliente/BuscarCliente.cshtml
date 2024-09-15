@@ -52,10 +52,10 @@ else if (TempData["msg"] as string == "1")
         <span> Consulta agendada com sucesso!</span>
     </div>
 }
-<h1 class="display-4 align-content-center">Clientes</h1>
+<h1 class="display-4 align-content-center"></h1>
 
 <p>
-    <a class="btn btn-primary" asp-action="CadastroCliente">Nova Consulta</a>
+    <a class="btn btn-primary" asp-action="AgendamentoCliente">Nova Consulta</a>
 </p>
 <div class="container mt-5">
     <!-- Nav tabs -->
@@ -97,9 +97,9 @@ else if (TempData["msg"] as string == "1")
                             <th>
                                 @Html.DisplayNameFor(model => model.Hora_Agendamento)
                             </th>
-                            <th>
+                      @*       <th>
                                 @Html.DisplayNameFor(model => model.Descricao)
-                            </th>
+                            </th> *@
                         </tr>
                     </thead>
                     <tbody>
@@ -121,13 +121,13 @@ else if (TempData["msg"] as string == "1")
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Hora_Agendamento)
                                 </td>
-                                <td>
+                              @*   <td>
                                     @Html.DisplayFor(modelItem => item.Descricao)
-                                </td>
+                                </td> *@
                                 <td>
                                 <td>
 
-                                    <a class="btn btn-primary" style="padding:0.2rem;" asp-action="CadastroCliente" asp-route-id="@item.Id">Alterar</a> |
+                                    <a class="btn btn-primary" style="padding:0.2rem;" asp-action="AgendamentoCliente" asp-route-id="@item.Id">Alterar</a> |
                                     <a class="btn btn-primary" style="padding:0.2rem;" asp-action="DetalhesClientes" asp-route-id="@item.Id">Detalhes</a>
                                 </td>
                             </tr>

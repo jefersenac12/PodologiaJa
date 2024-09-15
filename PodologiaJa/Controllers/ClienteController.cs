@@ -88,7 +88,7 @@ namespace PodologiaJa.Controllers
             return View(await _context.Clientes.FindAsync(Id));
         }
         // metodo para cadastro de clientes . pode ser usado para criar ou editar.
-        public async Task<IActionResult> CadastroCliente(int? Id)
+        public async Task<IActionResult> AgendamentoCliente(int? Id)
         {
             // se o id for nulo, retorna uma  view vazia para cadastro de um novo cliente
             if (Id == null)
@@ -103,7 +103,7 @@ namespace PodologiaJa.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CadastroCliente([Bind("Id,Nome_completo,Celular,Email,Data_Agendamento,Hora_Agendamento,Descricao")] Cliente cliente)
+        public async Task<IActionResult> AgendamentoCliente([Bind("Id,Nome_completo,Celular,Email,Data_Agendamento,Hora_Agendamento,Descricao")] Cliente cliente)
         {
             //try-cath Por que? Para capturar exceções inesperadas durante o processo de cadastro, como falhas no banco de dados. Isso evita que o código quebre inesperadamente
             //e exibe uma mensagem de erro amigável ao usuário
