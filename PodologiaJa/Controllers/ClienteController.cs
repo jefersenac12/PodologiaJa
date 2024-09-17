@@ -126,11 +126,21 @@ namespace PodologiaJa.Controllers
                 // Horário de funcionamento: 9h às 18h
                 var horarioAbertura = new TimeOnly(9, 0);
                 var horarioFechamento = new TimeOnly(18, 0);
-
+                var ultimoAgendamento = new TimeOnly(17, 0);// ultimo horario que pode ser agendado
                 // Verifica se o horário de agendamento está dentro do horário de funcionamento
                 if (cliente.Hora_Agendamento < horarioAbertura || cliente.Hora_Agendamento > horarioFechamento)
                 {
                     ModelState.AddModelError("Hora_Agendamento", "Os agendamentos devem ser feitos entre 9h e 18h.");
+                }
+                var bloqueioAgendamento= horarioFechamento.AddMinutes(-30); //17:30
+                if (cliente.Hora_Agendamento >= bloqueioAgendamento)
+                {
+                    ModelState.AddModelError("Hora_Agendamento", "Nao e permitido agendar atendimento a partir de 17:30.");
+                }
+                
+                if(cliente.Hora_Agendamento.Minute !=0 && cliente.Hora_Agendamento.Minute !=30)
+                {
+                 ModelState.AddModelError("Hora_Agendamento","O horario de agendmento deve ser em intervalo de 30 minutos,como 9:00,9:30,10:00, etc.");
                 }
 
                 // Verifica se o modelo é válido
