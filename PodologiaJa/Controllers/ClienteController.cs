@@ -140,16 +140,28 @@ namespace PodologiaJa.Controllers
                     cliente.Data_Agendamento = DateOnly.ParseExact(Formatar.FormatarData(cliente.Data_Agendamento), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                     cliente.Hora_Agendamento = TimeOnly.ParseExact(Formatar.FormatarHora(cliente.Hora_Agendamento), @"hh\:mm", CultureInfo.InvariantCulture);
 
-                    // Verifica se o horário e data já estão agendados por outro cliente
-                    var AgendamentoExistente = await _context.Clientes
-                        .Where(c => c.Data_Agendamento == cliente.Data_Agendamento && c.Hora_Agendamento == cliente.Hora_Agendamento && c.Id != cliente.Id)
-                        .AnyAsync();
+               
+                        //Aqui esta  o intervalo de tempo atual de 30 minutos. para aumentar o intervalo 
+                        var intervaloMin = cliente.Hora_Agendamento.AddMinutes(-30); // aumente para -60(1 hora) ou -120(2 horas)
+                        var intervaloMax = cliente.Hora_Agendamento.AddMinutes(30); //aumente para 60 (1 hora) ou 120 (2 horas)
+                      //verifica se ha agendamento conflitante dentro do intervalo
+                        var AgendamentoConflito= await _context.Clientes.
+                            Where(c => c.Data_Agendamento == cliente.Data_Agendamento
+                            && c.Hora_Agendamento >= intervaloMin
+                            && c.Hora_Agendamento <= intervaloMax
+                             && c.Id != cliente.Id) //exclui o cliente  atual (em caso de edição)
+                            .AnyAsync();
+            
+                    //// Verifica se o horário e data já estão agendados por outro cliente
+                    //var AgendamentoExistente = await _context.Clientes
+                    //    .Where(c => c.Data_Agendamento == cliente.Data_Agendamento && c.Hora_Agendamento == cliente.Hora_Agendamento && c.Id != cliente.Id)
+                    //    .AnyAsync();
                     //FirstOrDefaultAsync: retorna o primeiro objeto que corresponde à codificação, ou null senenhum for encontrado.Util quando você precisa manipular o objeto.
                     //AnyAsync:verifica se existe pelo menos um item que corresponde a uma codificação.Retorna um valor booleano (true ou false
 
-                    if (AgendamentoExistente)
+                    if (AgendamentoConflito)
                     {
-                        ModelState.AddModelError("Hora_Agendamento", "Este horário já está agendado. Por favor, escolha outro horário.");
+                        ModelState.AddModelError("Hora_Agendamento", "Este horário já está ocupaado ou muito proximo de outro agendamento. Por favor, escolha  um horario com pelo menos  30 minutos de intervalo.");
                         return View(cliente);
                     }
 
@@ -228,6 +240,20 @@ namespace PodologiaJa.Controllers
             }
             return RedirectToAction("BuscarCliente");
         }
+        //metodo que verifica se existe conflito de ageendamento com intervalo de 30 minutos
+        //private async Task<bool>ExisteConflitoDeAgendamento(Cliente cliente)
+        //{
+        //    //Aqui esta  o intervalo de tempo atual de 30 minutos. para aumentar o intervalo 
+        //    var intervaloMin = cliente.Hora_Agendamento.AddMinutes(-30); // aumente para -60(1 hora) ou -120(2 horas)
+        //    var intervaloMax = cliente.Hora_Agendamento.AddMinutes(30); //aumente para 60 (1 hora) ou 120 (2 horas)
+
+        //    return await _context.Clientes.
+        //        Where(c => c.Data_Agendamento == cliente.Data_Agendamento
+        //        && c.Hora_Agendamento >= intervaloMin
+        //        && c.Hora_Agendamento <= intervaloMax
+        //         && c.Id != cliente.Id)
+        //        .AnyAsync();
+        //}
     }
 }
 
